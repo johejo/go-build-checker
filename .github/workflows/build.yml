@@ -12,7 +12,7 @@ jobs:
         go: ["1.15.x", "1.16.x", "tip"]
         target:
           - "juju/juju"
-          - "kubernetes/ingres-nginx"
+          - "kubernetes/ingress-nginx"
           - "hashicorp/terraform"
           - "hashicorp/consul"
           - "hashicorp/vault"
