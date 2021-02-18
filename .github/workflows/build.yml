@@ -12,12 +12,15 @@ jobs:
         go: ["1.15.x", "1.16.x", "tip"]
         target:
           - "juju/juju"
+          - "kubernetes/kubernetes"
           - "kubernetes/ingress-nginx"
           - "hashicorp/terraform"
           - "hashicorp/consul"
           - "hashicorp/vault"
           - "hashicorp/nomad"
           - "hashicorp/packer"
+          - "hashicorp/boundary"
+          - "hashicorp/waypoint"
           - "prometheus/prometheus"
           - "grpc-ecosystem/grpc-gateway"
           - "minio/minio"
@@ -29,6 +32,7 @@ jobs:
           - "ory/kratos"
           - "ory/hydra"
           - "grafana/grafana"
+          - "grafana/loki"
           - "vitessio/vitess"
           - "golang-migrate/migrate"
           - "terraform-linters/tflint"
@@ -63,8 +67,20 @@ jobs:
           - "go-delve/delve"
           - "jetstack/cert-manager"
           - "cilium/cilium"
+          - "containerd/containerd"
+          - "projectcontour/contour"
+          - "dgraph-io/dgraph"
+          - "dgraph-io/badger"
+          - "pingcap/tidb"
+          - "storj/storj"
+          - "perkeep/perkeep"
+          - "operator-framework/operator-sdk"
     runs-on: ${{ matrix.os }}
     steps:
+      - name: install libsystemd-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsystemd-dev
       - uses: actions/checkout@v2
         with:
           repository: ${{ matrix.target }}
