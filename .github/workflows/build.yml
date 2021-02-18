@@ -1,0 +1,93 @@
+name: build
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 0 * * *"
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+        go: ["1.15.x", "1.16.x", "tip"]
+        target:
+          - "juju/juju"
+          - "kubernetes/ingres-nginx"
+          - "hashicopy/terraform"
+          - "hashicopy/consul"
+          - "hashicopy/vault"
+          - "hashicopy/nomad"
+          - "hashicopy/packer"
+          - "prometheus/prometheus"
+          - "grpc-ecosystem/grpc-gateway"
+          - "minio/minio"
+          - "golangci/golangci-lint"
+          - "istio/istio"
+          - "argoproj/argo-cd"
+          - "argoproj/argo-rollouts"
+          - "argoproj/argo-events"
+          - "ory/kratos"
+          - "ory/hydra"
+          - "influxdata/influxdb"
+          - "grafana/grafana"
+          - "vitessio/vitess"
+          - "golang-migrate/migrate"
+          - "terraform-linters/tflint"
+          - "dapr/dapr"
+          - "gomods/athens"
+          - "future-architect/vuls"
+          - "etcd-io/etcd"
+          - "jaegertracing/jaeger"
+          - "VictoriaMetrics/VictoriaMetrics"
+          - "helm/helm"
+          - "drone/drone"
+          - "go-gitea/gitea"
+          - "matrix-org/dendrite"
+          - "rclone/rclone"
+          - "tailscale/tailscale"
+          - "uber/cadence"
+          - "coredns/coredns"
+          - "rook/rook"
+          - "open-policy-agent/opa"
+          - "nats-io/nats-server"
+          - "spiffe/spire"
+          - "thanos-io/thanos"
+          - "buildpacks/pack"
+          - "GoogleContainerTools/kaniko"
+          - "GoogleContainerTools/skaffold"
+          - "tektoncd/pipeline"
+          - "knative/serving"
+          - "aquasecurity/trivy"
+          - "goreleaser/goreleaser"
+          - "GoogleCloudPlatform/terraformer"
+          - "rqlite/rqlite"
+          - "go-delve/delve"
+          - "jetstack/cert-manager"
+          - "cilium/cilium"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ matrix.target }}
+          submodules: true
+      - uses: actions/setup-go@v2
+        if: matrix.go != 'tip'
+        with:
+          go-version: ${{ matrix.go }}
+      - uses: actions/setup-go@v2
+        if: matrix.go == 'tip'
+        with:
+          stable: true
+      - name: install tip
+        if: matrix.go == 'tip'
+        run: |
+          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
+          cd $HOME/gotip/src
+          ./make.bash
+          echo "GOROOT=$HOME/gotip" >> "$GITHUB_ENV"
+          echo "$HOME/gotip/bin" >> "$GITHUB_PATH"
+      - name: go build
+        run: |
+          go version
+          go env
+          go build ./...
