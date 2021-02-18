@@ -77,10 +77,10 @@ jobs:
           - "operator-framework/operator-sdk"
     runs-on: ${{ matrix.os }}
     steps:
-      - name: install libsystemd-dev
+      - name: install deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y libsystemd-dev
+          sudo apt-get install -y libsystemd-dev libbtrfs-dev
       - uses: actions/checkout@v2
         with:
           repository: ${{ matrix.target }}
