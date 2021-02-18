@@ -28,7 +28,6 @@ jobs:
           - "argoproj/argo-events"
           - "ory/kratos"
           - "ory/hydra"
-          - "influxdata/influxdb"
           - "grafana/grafana"
           - "vitessio/vitess"
           - "golang-migrate/migrate"
