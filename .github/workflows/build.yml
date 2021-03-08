@@ -12,7 +12,6 @@ jobs:
         go: ["1.16.x", "tip"]
         target:
           - "juju/juju"
-          - "kubernetes/kubernetes"
           - "kubernetes/ingress-nginx"
           - "hashicorp/terraform"
           - "hashicorp/consul"
@@ -43,7 +42,6 @@ jobs:
           - "jaegertracing/jaeger"
           - "VictoriaMetrics/VictoriaMetrics"
           - "helm/helm"
-          - "drone/drone"
           - "go-gitea/gitea"
           - "matrix-org/dendrite"
           - "rclone/rclone"
