@@ -12,7 +12,6 @@ jobs:
         go: ["1.16.x", "tip"]
         target:
           - "juju/juju"
-          - "kubernetes/kubernetes"
           - "kubernetes/ingress-nginx"
           - "hashicorp/terraform"
           - "hashicorp/consul"
@@ -33,7 +32,6 @@ jobs:
           - "ory/hydra"
           - "grafana/grafana"
           - "grafana/loki"
-          - "vitessio/vitess"
           - "golang-migrate/migrate"
           - "terraform-linters/tflint"
           - "dapr/dapr"
@@ -43,7 +41,6 @@ jobs:
           - "jaegertracing/jaeger"
           - "VictoriaMetrics/VictoriaMetrics"
           - "helm/helm"
-          - "drone/drone"
           - "go-gitea/gitea"
           - "matrix-org/dendrite"
           - "rclone/rclone"
@@ -69,9 +66,7 @@ jobs:
           - "cilium/cilium"
           - "containerd/containerd"
           - "projectcontour/contour"
-          - "dgraph-io/dgraph"
           - "dgraph-io/badger"
-          - "pingcap/tidb"
           - "storj/storj"
           - "perkeep/perkeep"
           - "operator-framework/operator-sdk"
