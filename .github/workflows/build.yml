@@ -108,7 +108,7 @@ jobs:
           echo "$HOME/gotip/bin" >> "$GITHUB_PATH"
       - name: go build
         env:
-          GOEXPERIMENT: $${ matrix.go_experiment }
+          GOEXPERIMENT: ${{ matrix.go_experiment }}
         run: |
           go version
           go env
