@@ -9,7 +9,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04]
-        go: ["1.16.x", "tip"]
+        go: ["tip"]
+        go_experiment: ["regabi,regabiargs"]
         target:
           - "juju/juju"
           - "kubernetes/ingress-nginx"
@@ -70,12 +71,21 @@ jobs:
           - "storj/storj"
           - "perkeep/perkeep"
           - "operator-framework/operator-sdk"
+          - "openshift/oc"
+          - "restic/restic"
+          - "bettercap/bettercap"
+          - "99designs/gqlgen"
+          - "openservicemesh/osm"
+          - "slackhq/nebula"
+          - "schollz/croc"
+          - "authelia/authelia"
+          - "k6io/k6"
     runs-on: ${{ matrix.os }}
     steps:
       - name: install deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y libsystemd-dev libbtrfs-dev
+          sudo apt-get install -y libsystemd-dev libbtrfs-dev libgpgme-dev
       - uses: actions/checkout@v2
         with:
           repository: ${{ matrix.target }}
@@ -97,6 +107,8 @@ jobs:
           echo "GOROOT=$HOME/gotip" >> "$GITHUB_ENV"
           echo "$HOME/gotip/bin" >> "$GITHUB_PATH"
       - name: go build
+        env:
+          GOEXPERIMENT: $${ matrix.go_experiment }
         run: |
           go version
           go env
