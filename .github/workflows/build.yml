@@ -10,7 +10,7 @@ jobs:
       matrix:
         os: [ubuntu-20.04]
         go: ["tip"]
-        go_experiment: ["regabi,regabiargs"]
+        go_experiment: ["", "regabi,regabiargs"]
         target:
           - "juju/juju"
           - "kubernetes/ingress-nginx"
@@ -31,6 +31,7 @@ jobs:
           - "argoproj/argo-events"
           - "ory/kratos"
           - "ory/hydra"
+          - "ory/keto"
           - "grafana/grafana"
           - "grafana/loki"
           - "golang-migrate/migrate"
@@ -80,12 +81,18 @@ jobs:
           - "schollz/croc"
           - "authelia/authelia"
           - "k6io/k6"
+          - "linkerd/linkerd2"
+          - "containrrr/watchtower"
+          - "rancher/rancher"
+          - "projectdiscovery/httpx"
+          - "ethereum/go-ethereum"
+          - "fatedier/frp"
     runs-on: ${{ matrix.os }}
     steps:
       - name: install deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y libsystemd-dev libbtrfs-dev libgpgme-dev
+          sudo apt-get install -y libsystemd-dev libbtrfs-dev libgpgme-dev libpcap-dev librpm-dev
       - uses: actions/checkout@v2
         with:
           repository: ${{ matrix.target }}
