@@ -74,7 +74,6 @@ jobs:
           - "operator-framework/operator-sdk"
           - "openshift/oc"
           - "restic/restic"
-          - "bettercap/bettercap"
           - "99designs/gqlgen"
           - "openservicemesh/osm"
           - "slackhq/nebula"
@@ -92,7 +91,7 @@ jobs:
       - name: install deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y libsystemd-dev libbtrfs-dev libgpgme-dev libpcap-dev librpm-dev
+          sudo apt-get install -y libsystemd-dev libbtrfs-dev libgpgme-dev librpm-dev
       - uses: actions/checkout@v2
         with:
           repository: ${{ matrix.target }}
