@@ -10,7 +10,6 @@ jobs:
       matrix:
         os: [ubuntu-20.04]
         go: ["tip"]
-        go_experiment: ["", "regabi,regabiargs"]
         target:
           - "juju/juju"
           - "kubernetes/ingress-nginx"
@@ -113,8 +112,6 @@ jobs:
           echo "GOROOT=$HOME/gotip" >> "$GITHUB_ENV"
           echo "$HOME/gotip/bin" >> "$GITHUB_PATH"
       - name: go build
-        env:
-          GOEXPERIMENT: ${{ matrix.go_experiment }}
         run: |
           go version
           go env
