@@ -73,7 +73,6 @@ jobs:
           - "openshift/oc"
           - "restic/restic"
           - "99designs/gqlgen"
-          - "openservicemesh/osm"
           - "slackhq/nebula"
           - "schollz/croc"
           - "authelia/authelia"
