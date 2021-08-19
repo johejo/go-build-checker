@@ -10,6 +10,7 @@ jobs:
       matrix:
         os: [ubuntu-20.04]
         go: ["tip"]
+        typeparams: [false, true]
         target:
           - "juju/juju"
           - "kubernetes/ingress-nginx"
@@ -109,8 +110,11 @@ jobs:
           ./make.bash
           echo "GOROOT=$HOME/gotip" >> "$GITHUB_ENV"
           echo "$HOME/gotip/bin" >> "$GITHUB_PATH"
-      - name: go build
+      - name: print version and env info
         run: |
           go version
           go env
-          go build ./...
+      - if: matrix.typeparams == true
+        run: go build -gcflagc=-G=3 ./...
+      - if: matrix.typeparams == false
+        run: go build ./...
