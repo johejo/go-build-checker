@@ -10,7 +10,6 @@ jobs:
       matrix:
         os: [ubuntu-20.04]
         go: ["tip"]
-        typeparams: [false, true]
         target:
           - "juju/juju"
           - "kubernetes/ingress-nginx"
@@ -114,7 +113,4 @@ jobs:
         run: |
           go version
           go env
-      - if: matrix.typeparams == true
-        run: go build -gcflags=-G=3 ./...
-      - if: matrix.typeparams == false
-        run: go build ./...
+      - run: go build ./...
