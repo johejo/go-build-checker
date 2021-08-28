@@ -31,7 +31,6 @@ jobs:
           - "ory/kratos"
           - "ory/hydra"
           - "ory/keto"
-          - "grafana/grafana"
           - "grafana/loki"
           - "golang-migrate/migrate"
           - "terraform-linters/tflint"
