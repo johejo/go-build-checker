@@ -32,6 +32,9 @@ jobs:
           - "ory/hydra"
           - "ory/keto"
           - "grafana/loki"
+          - "grafana/k6"
+          - "grafana/tempo"
+          - "grafana/agent"
           - "golang-migrate/migrate"
           - "terraform-linters/tflint"
           - "dapr/dapr"
@@ -75,13 +78,13 @@ jobs:
           - "slackhq/nebula"
           - "schollz/croc"
           - "authelia/authelia"
-          - "k6io/k6"
           - "linkerd/linkerd2"
           - "containrrr/watchtower"
           - "rancher/rancher"
           - "projectdiscovery/httpx"
           - "ethereum/go-ethereum"
           - "fatedier/frp"
+          - "caddyserver/caddy"
     runs-on: ${{ matrix.os }}
     steps:
       - name: install deps
