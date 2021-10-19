@@ -10,6 +10,7 @@ jobs:
       matrix:
         os: [ubuntu-20.04]
         go: ["tip"]
+        go-amd64: ["v1", "v2", "v3"]
         target:
           - "juju/juju"
           - "kubernetes/ingress-nginx"
@@ -85,6 +86,7 @@ jobs:
           - "ethereum/go-ethereum"
           - "fatedier/frp"
           - "caddyserver/caddy"
+          - "nsqio/nsq"
     runs-on: ${{ matrix.os }}
     steps:
       - name: install deps
@@ -95,24 +97,13 @@ jobs:
         with:
           repository: ${{ matrix.target }}
           submodules: true
-      - uses: actions/setup-go@v2
-        if: matrix.go != 'tip'
+      - uses: WillAbides/setup-go-faster@v1
         with:
           go-version: ${{ matrix.go }}
-      - uses: actions/setup-go@v2
-        if: matrix.go == 'tip'
-        with:
-          stable: true
-      - name: install tip
-        if: matrix.go == 'tip'
-        run: |
-          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
-          cd $HOME/gotip/src
-          ./make.bash
-          echo "GOROOT=$HOME/gotip" >> "$GITHUB_ENV"
-          echo "$HOME/gotip/bin" >> "$GITHUB_PATH"
       - name: print version and env info
         run: |
           go version
           go env
       - run: go build ./...
+        env:
+          GOAMD64: ${{ matrix.go-amd64 }}
