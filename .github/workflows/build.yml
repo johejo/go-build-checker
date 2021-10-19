@@ -88,6 +88,8 @@ jobs:
           - "caddyserver/caddy"
           - "nsqio/nsq"
     runs-on: ${{ matrix.os }}
+    env:
+      GOAMD64: ${{ matrix.go-amd64 }}
     steps:
       - name: install deps
         run: |
@@ -105,5 +107,3 @@ jobs:
           go version
           go env
       - run: go build ./...
-        env:
-          GOAMD64: ${{ matrix.go-amd64 }}
