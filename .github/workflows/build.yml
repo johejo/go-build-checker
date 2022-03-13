@@ -113,6 +113,7 @@ jobs:
           - "emitter-io/emitter"
           - "lxc/lxd"
           - "projectcalico/calico"
+          - "benthosdev/benthos"
 
     runs-on: ${{ matrix.os }}
     env:
