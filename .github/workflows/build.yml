@@ -88,14 +88,13 @@ jobs:
             #- "caddyserver/caddy"
           - "nsqio/nsq"
           - "kedacore/keda"
-          - "open-telemetory/opentelemetory-collector"
+          - "open-telemetry/opentelemetry-collector"
           - "gohugoio/hugo"
           - "derailed/k9s"
           - "cayleygraph/cayley"
           - "kubernetes/kops"
           - "gopherjs/gopherjs"
           - "quay/clair"
-          - "kubernetes/kompose"
           - "codenotary/immudb"
           - "TykTechnologies/tyk"
           - "flannel-io/flannel"
@@ -108,11 +107,9 @@ jobs:
           - "tendermint/tendermint"
           - "runatlantis/atlantis"
           - "aquasecurity/tfsec"
-          - "megaease/easegress"
           - "rh12503/triangula"
           - "emitter-io/emitter"
           - "lxc/lxd"
-          - "projectcalico/calico"
           - "benthosdev/benthos"
 
     runs-on: ${{ matrix.os }}
@@ -122,7 +119,17 @@ jobs:
       - name: install deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y libsystemd-dev libbtrfs-dev libgpgme-dev librpm-dev libbpfcc-dev liblxc-dev
+          sudo apt-get install -y \
+            libsystemd-dev \
+            libbtrfs-dev \
+            libgpgme-dev \
+            librpm-dev \
+            libbpfcc-dev \
+            liblxc-dev \
+            libcap-dev \
+            libudev-dev \
+            libdevmapper-dev \
+            libzmqd3-dev
       - uses: actions/checkout@v3
         with:
           repository: ${{ matrix.target }}
