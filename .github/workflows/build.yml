@@ -129,7 +129,8 @@ jobs:
             libcap-dev \
             libudev-dev \
             libdevmapper-dev \
-            libzmq3-dev
+            libzmq3-dev \
+            libacl1-dev
       - uses: actions/checkout@v3
         with:
           repository: ${{ matrix.target }}
