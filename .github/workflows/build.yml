@@ -109,7 +109,6 @@ jobs:
           - "aquasecurity/tfsec"
           - "rh12503/triangula"
           - "emitter-io/emitter"
-          - "lxc/lxd"
           - "benthosdev/benthos"
 
     runs-on: ${{ matrix.os }}
