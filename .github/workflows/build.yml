@@ -96,7 +96,7 @@ jobs:
           - "gopherjs/gopherjs"
           - "quay/clair"
           - "codenotary/immudb"
-          - "TykTechnologies/tyk"
+            #- "TykTechnologies/tyk"
           - "flannel-io/flannel"
           - "OWASP/Amass"
           - "weaveworks/ignite"
