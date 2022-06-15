@@ -35,7 +35,7 @@ jobs:
           - "grafana/loki"
           - "grafana/k6"
           - "grafana/tempo"
-          - "grafana/agent"
+            #- "grafana/agent"
           - "golang-migrate/migrate"
           - "terraform-linters/tflint"
           - "dapr/dapr"
