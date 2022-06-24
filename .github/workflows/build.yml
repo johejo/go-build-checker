@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04]
+        os: [ubuntu-22.04]
         go: ["tip"]
         go-amd64: ["v3"]
         target:
@@ -110,6 +110,7 @@ jobs:
           - "rh12503/triangula"
           - "emitter-io/emitter"
           - "benthosdev/benthos"
+          - "cortexproject/cortex"
 
     runs-on: ${{ matrix.os }}
     env:
