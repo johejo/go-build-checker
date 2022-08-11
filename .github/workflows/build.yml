@@ -11,6 +11,7 @@ jobs:
         os: [ubuntu-22.04]
         go: ["tip"]
         go-amd64: ["v3"]
+        go-experiment: ["unified"]
         target:
           - "juju/juju"
           - "kubernetes/ingress-nginx"
@@ -25,7 +26,7 @@ jobs:
           - "grpc-ecosystem/grpc-gateway"
           - "minio/minio"
           - "golangci/golangci-lint"
-            #- "istio/istio"
+          - "istio/istio"
           - "argoproj/argo-cd"
           - "argoproj/argo-rollouts"
           - "argoproj/argo-events"
@@ -35,7 +36,7 @@ jobs:
           - "grafana/loki"
           - "grafana/k6"
           - "grafana/tempo"
-            #- "grafana/agent"
+          - "grafana/agent"
           - "golang-migrate/migrate"
           - "terraform-linters/tflint"
           - "dapr/dapr"
@@ -46,12 +47,12 @@ jobs:
           - "VictoriaMetrics/VictoriaMetrics"
           - "helm/helm"
           - "go-gitea/gitea"
-            #- "matrix-org/dendrite"
+          - "matrix-org/dendrite"
           - "rclone/rclone"
-            #- "tailscale/tailscale"
+          - "tailscale/tailscale"
           - "uber/cadence"
           - "coredns/coredns"
-            #- "rook/rook"
+          - "rook/rook"
           - "open-policy-agent/opa"
           - "nats-io/nats-server"
           - "spiffe/spire"
@@ -67,7 +68,7 @@ jobs:
           - "rqlite/rqlite"
           - "go-delve/delve"
           - "cilium/cilium"
-            #- "containerd/containerd"
+          - "containerd/containerd"
           - "projectcontour/contour"
           - "dgraph-io/badger"
             #- "storj/storj"
@@ -85,7 +86,7 @@ jobs:
           - "projectdiscovery/httpx"
           - "ethereum/go-ethereum"
           - "fatedier/frp"
-            #- "caddyserver/caddy"
+          - "caddyserver/caddy"
           - "nsqio/nsq"
           - "kedacore/keda"
           - "open-telemetry/opentelemetry-collector"
@@ -115,6 +116,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       GOAMD64: ${{ matrix.go-amd64 }}
+      GOEXPERIMENT: ${{ matrix.go-experiment }}
     steps:
       - name: install deps
         run: |
