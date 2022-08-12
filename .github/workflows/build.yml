@@ -46,7 +46,6 @@ jobs:
           - "VictoriaMetrics/VictoriaMetrics"
           - "helm/helm"
           - "go-gitea/gitea"
-          - "matrix-org/dendrite"
           - "rclone/rclone"
           - "uber/cadence"
           - "coredns/coredns"
