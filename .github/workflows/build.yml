@@ -11,7 +11,6 @@ jobs:
         os: [ubuntu-22.04]
         go: ["tip"]
         go-amd64: ["v3"]
-        go-experiment: ["unified"]
         target:
           - "juju/juju"
           - "kubernetes/ingress-nginx"
@@ -109,7 +108,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       GOAMD64: ${{ matrix.go-amd64 }}
-      GOEXPERIMENT: ${{ matrix.go-experiment }}
     steps:
       - name: install deps
         run: |
