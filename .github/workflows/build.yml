@@ -95,7 +95,6 @@ jobs:
           - "weaveworks/ignite"
           - "concourse/concourse"
           - "vmware-tanzu/octant"
-          - "MontFerret/ferret"
           - "moby/buildkit"
           - "tendermint/tendermint"
           - "runatlantis/atlantis"
