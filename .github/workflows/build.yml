@@ -79,7 +79,6 @@ jobs:
           - "containrrr/watchtower"
           - "projectdiscovery/httpx"
           - "ethereum/go-ethereum"
-          - "fatedier/frp"
           - "nsqio/nsq"
           - "kedacore/keda"
           - "open-telemetry/opentelemetry-collector"
