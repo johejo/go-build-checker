@@ -119,7 +119,7 @@ jobs:
             libdevmapper-dev \
             libzmq3-dev \
             libacl1-dev
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: ${{ matrix.target }}
           submodules: true
