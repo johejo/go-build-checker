@@ -9,125 +9,205 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04]
-        go: ["tip"]
+        go-version: ["tip"]
         go-amd64: ["v3"]
-        target:
-          - "juju/juju"
-          - "kubernetes/ingress-nginx"
-          - "hashicorp/terraform"
-          - "hashicorp/consul"
-          - "hashicorp/vault"
-          - "hashicorp/nomad"
-          - "hashicorp/packer"
-          - "hashicorp/boundary"
-          - "hashicorp/waypoint"
-          - "prometheus/prometheus"
-          - "grpc-ecosystem/grpc-gateway"
-          - "minio/minio"
-          - "golangci/golangci-lint"
-          - "argoproj/argo-cd"
-          - "argoproj/argo-rollouts"
-          - "argoproj/argo-events"
-          - "ory/kratos"
-          - "ory/hydra"
-          - "ory/keto"
-          - "grafana/loki"
-          - "grafana/k6"
-          - "grafana/tempo"
-          - "golang-migrate/migrate"
-          - "terraform-linters/tflint"
-          - "gomods/athens"
-          - "future-architect/vuls"
-          - "etcd-io/etcd"
-          - "jaegertracing/jaeger"
-          - "VictoriaMetrics/VictoriaMetrics"
-          - "helm/helm"
-          - "go-gitea/gitea"
-          - "rclone/rclone"
-          - "uber/cadence"
-          - "coredns/coredns"
-          - "rook/rook"
-          - "open-policy-agent/opa"
-          - "nats-io/nats-server"
-          - "spiffe/spire"
-          - "thanos-io/thanos"
-          - "buildpacks/pack"
-          - "GoogleContainerTools/kaniko"
-          - "GoogleContainerTools/skaffold"
-          - "tektoncd/pipeline"
-          - "knative/serving"
-          - "goreleaser/goreleaser"
-          - "GoogleCloudPlatform/terraformer"
-          - "rqlite/rqlite"
-          - "go-delve/delve"
-          - "cilium/cilium"
-          - "containerd/containerd"
-          - "projectcontour/contour"
-          - "dgraph-io/badger"
-          - "perkeep/perkeep"
-          - "operator-framework/operator-sdk"
-          - "openshift/oc"
-          - "restic/restic"
-          - "99designs/gqlgen"
-          - "slackhq/nebula"
-          - "schollz/croc"
-          - "authelia/authelia"
-          - "linkerd/linkerd2"
-          - "containrrr/watchtower"
-          - "projectdiscovery/httpx"
-          - "ethereum/go-ethereum"
-          - "nsqio/nsq"
-          - "kedacore/keda"
-          - "open-telemetry/opentelemetry-collector"
-          - "gohugoio/hugo"
-          - "derailed/k9s"
-          - "cayleygraph/cayley"
-          - "kubernetes/kops"
-          - "gopherjs/gopherjs"
-          - "quay/clair"
-          - "codenotary/immudb"
-          - "flannel-io/flannel"
-          - "OWASP/Amass"
-          - "weaveworks/ignite"
-          - "concourse/concourse"
-          - "vmware-tanzu/octant"
-          - "moby/buildkit"
-          - "tendermint/tendermint"
-          - "runatlantis/atlantis"
-          - "aquasecurity/tfsec"
-          - "rh12503/triangula"
-          - "emitter-io/emitter"
-          - "benthosdev/benthos"
-          - "cortexproject/cortex"
-
+        include:
+          - target: "juju/juju"
+            deps: []
+          - target: "kubernetes/ingress-nginx"
+            deps: []
+          - target: "hashicorp/terraform"
+            deps: []
+          - target: "hashicorp/consul"
+            deps: []
+          - target: "hashicorp/vault"
+            deps: []
+          - target: "hashicorp/nomad"
+            deps: []
+          - target: "hashicorp/packer"
+            deps: []
+          - target: "hashicorp/boundary"
+            deps: []
+          - target: "hashicorp/waypoint"
+            deps: []
+          - target: "prometheus/prometheus"
+            deps: []
+          - target: "grpc-ecosystem/grpc-gateway"
+            deps: []
+          - target: "minio/minio"
+            deps: []
+          - target: "golangci/golangci-lint"
+            deps: []
+          - target: "argoproj/argo-cd"
+            deps: []
+          - target: "argoproj/argo-rollouts"
+            deps: []
+          - target: "argoproj/argo-events"
+            deps: []
+          - target: "ory/kratos"
+            deps: []
+          - target: "ory/hydra"
+            deps: []
+          - target: "ory/keto"
+            deps: []
+          - target: "grafana/loki"
+            deps: []
+          - target: "grafana/k6"
+            deps: []
+          - target: "grafana/tempo"
+            deps: []
+          - target: "golang-migrate/migrate"
+            deps: []
+          - target: "terraform-linters/tflint"
+            deps: []
+          - target: "gomods/athens"
+            deps: []
+          - target: "future-architect/vuls"
+            deps: []
+          - target: "etcd-io/etcd"
+            deps: []
+          - target: "jaegertracing/jaeger"
+            deps: []
+          - target: "VictoriaMetrics/VictoriaMetrics"
+            deps: []
+          - target: "helm/helm"
+            deps: []
+          - target: "go-gitea/gitea"
+            deps: []
+          - target: "rclone/rclone"
+            deps: []
+          - target: "uber/cadence"
+            deps: []
+          - target: "coredns/coredns"
+            deps: []
+          - target: "rook/rook"
+            deps: []
+          - target: "open-policy-agent/opa"
+            deps: []
+          - target: "nats-io/nats-server"
+            deps: []
+          - target: "spiffe/spire"
+            deps: []
+          - target: "thanos-io/thanos"
+            deps: []
+          - target: "buildpacks/pack"
+            deps: []
+          - target: "GoogleContainerTools/kaniko"
+            deps: []
+          - target: "GoogleContainerTools/skaffold"
+            deps: []
+          - target: "tektoncd/pipeline"
+            deps: []
+          - target: "knative/serving"
+            deps: []
+          - target: "goreleaser/goreleaser"
+            deps: []
+          - target: "GoogleCloudPlatform/terraformer"
+            deps: []
+          - target: "rqlite/rqlite"
+            deps: []
+          - target: "go-delve/delve"
+            deps: []
+          - target: "cilium/cilium"
+            deps: []
+          - target: "containerd/containerd"
+            deps: []
+          - target: "projectcontour/contour"
+            deps: []
+          - target: "dgraph-io/badger"
+            deps: []
+          - target: "perkeep/perkeep"
+            deps: []
+          - target: "operator-framework/operator-sdk"
+            deps: []
+          - target: "openshift/oc"
+            deps: []
+          - target: "restic/restic"
+            deps: []
+          - target: "99designs/gqlgen"
+            deps: []
+          - target: "slackhq/nebula"
+            deps: []
+          - target: "schollz/croc"
+            deps: []
+          - target: "authelia/authelia"
+            deps: []
+          - target: "linkerd/linkerd2"
+            deps: []
+          - target: "containrrr/watchtower"
+            deps: []
+          - target: "projectdiscovery/httpx"
+            deps: []
+          - target: "ethereum/go-ethereum"
+            deps: []
+          - target: "nsqio/nsq"
+            deps: []
+          - target: "kedacore/keda"
+            deps: []
+          - target: "open-telemetry/opentelemetry-collector"
+            deps: []
+          - target: "gohugoio/hugo"
+            deps: []
+          - target: "derailed/k9s"
+            deps: []
+          - target: "cayleygraph/cayley"
+            deps: []
+          - target: "kubernetes/kops"
+            deps: []
+          - target: "gopherjs/gopherjs"
+            deps: []
+          - target: "quay/clair"
+            deps: []
+          - target: "codenotary/immudb"
+            deps: []
+          - target: "flannel-io/flannel"
+            deps: []
+          - target: "OWASP/Amass"
+            deps: []
+          - target: "weaveworks/ignite"
+            deps: []
+          - target: "concourse/concourse"
+            deps: []
+          - target: "vmware-tanzu/octant"
+            deps: []
+          - target: "moby/buildkit"
+            deps: []
+          - target: "tendermint/tendermint"
+            deps: []
+          - target: "runatlantis/atlantis"
+            deps: []
+          - target: "aquasecurity/tfsec"
+            deps: []
+          - target: "rh12503/triangula"
+            deps: []
+          - target: "emitter-io/emitter"
+            deps: []
+          - target: "benthosdev/benthos"
+            deps: []
+          - target: "cortexproject/cortex"
+            deps: []
     runs-on: ${{ matrix.os }}
     env:
       GOAMD64: ${{ matrix.go-amd64 }}
+      GOCMD: go${{ matrix.go-version }}
+      DEPS: ${{ join(matrix.deps, ' ') }}
     steps:
       - name: install deps
+        if: ${{ env.DEPS != '' }}
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            libsystemd-dev \
-            libbtrfs-dev \
-            libgpgme-dev \
-            librpm-dev \
-            libbpfcc-dev \
-            liblxc-dev \
-            libcap-dev \
-            libudev-dev \
-            libdevmapper-dev \
-            libzmq3-dev \
-            libacl1-dev
+          sudo apt-get install -y "$DEPS"
+      - uses: actions/setup-go@v5
+      - name: install tip
+        run: |
+          go install "golang.org/dl/$GOCMD@latest"
+          $GOCMD download
+      - name: print version and env info
+        run: |
+          $GOCMD version
+          $GOCMD env
       - uses: actions/checkout@v4
         with:
           repository: ${{ matrix.target }}
           submodules: true
-      - uses: WillAbides/setup-go-faster@v1
-        with:
-          go-version: ${{ matrix.go }}
-      - name: print version and env info
-        run: |
-          go version
-          go env
-      - run: go build ./...
+      - run: $GOCMD build ./...
