@@ -8,9 +8,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04]
-        go-version: ["tip"]
-        go-amd64: ["v3"]
         include:
           - target: "juju/juju"
             deps: []
@@ -186,10 +183,9 @@ jobs:
             deps: []
           - target: "cortexproject/cortex"
             deps: []
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-22.04
     env:
-      GOAMD64: ${{ matrix.go-amd64 }}
-      GOCMD: go${{ matrix.go-version }}
+      GOAMD64: v3
       DEPS: ${{ join(matrix.deps, ' ') }}
     steps:
       - name: install deps
@@ -200,14 +196,14 @@ jobs:
       - uses: actions/setup-go@v5
       - name: install tip
         run: |
-          go install "golang.org/dl/$GOCMD@latest"
-          $GOCMD download
+          go install "golang.org/dl/gotip@latest"
+          gotip download
       - name: print version and env info
         run: |
-          $GOCMD version
-          $GOCMD env
+          gotip version
+          gotip env
       - uses: actions/checkout@v4
         with:
           repository: ${{ matrix.target }}
           submodules: true
-      - run: $GOCMD build ./...
+      - run: gotip build ./...
