@@ -226,13 +226,16 @@ jobs:
           path: go-${{ env.SHA }}
       - name: Add path
         run: |
-          echo "$PWD/go-${{ env.SHA }}/bin" >> "$GITHUB_PATH"
+          echo "GOTIP=$PWD/go-${{ env.SHA }}/bin" >> "$GITHUB_ENV"
       - name: Check version
         run: |
-          go env
-          go version
+          "$GOTIP" version
+          "$GOTIP" env
       - uses: actions/checkout@v4
         with:
           repository: ${{ matrix.target }}
           submodules: true
-      - run: go build ./...
+          path: ${{ matrix.target }}
+      - run: |
+          "$GOTIP" build ./...
+        working-directory: ${{ matrix.target }}
