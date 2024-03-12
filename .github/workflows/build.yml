@@ -228,7 +228,11 @@ jobs:
         with:
           name: go-${{ env.SHA }}
           path: go-${{ env.SHA }}
-      - name: Add path
+      - name: fix permissions
+        run: |
+          chmod +x go-${{ env.SHA }}/bin/*
+          chmod +x go-${{ env.SHA }}/pkg/tool/linux_amd64/*
+      - name: Set env
         run: |
           echo "GOTIP=$PWD/go-${{ env.SHA }}/bin/go" >> "$GITHUB_ENV"
       - name: Check version
