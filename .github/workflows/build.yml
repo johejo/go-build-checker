@@ -19,10 +19,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - name: Download
         run: |
-          curl -fsSLO "https://github.com/golang/go/archive/$SHA.tar.gz" | tar zx
+          curl -fsSL "https://github.com/golang/go/archive/$SHA.tar.gz" | tar zx
       - name: Create VERSION
         run: |
-          echo "devel $SHA" > go-${{ env.SHA }}/VERSION
+          echo "devel $SHA" > "go-$SHA/VERSION"
       - uses: actions/setup-go@v5
         with:
           go-version: '1.22'
