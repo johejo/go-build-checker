@@ -17,7 +17,7 @@ jobs:
           echo "sha=$SHA" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ github.token }}
-      - name: Cache
+      - name: cache
         uses: actions/cache@v4
         id: cache-tip
         with:
@@ -27,18 +27,13 @@ jobs:
         if: steps.cache-tip.outputs.cache-hit != 'true'
         with:
           go-version: '1.22'
-      - name: Build tip
+      - name: build tip
         if: steps.cache-tip.outputs.cache-hit != 'true'
         run: |
           curl -fsSL "https://github.com/golang/go/archive/$SHA.tar.gz" | tar zx
           echo "devel $SHA" > "go-$SHA/VERSION"
           pushd "go-$SHA/src"
           ./make.bash
-      - name: Upload
-        uses: actions/upload-artifact@v4
-        with:
-          name: go-${{ env.SHA }}
-          path: go-${{ env.SHA }}
   build:
     needs:  [build-tip]
     strategy:
@@ -202,7 +197,7 @@ jobs:
           - target: "concourse/concourse"
             deps: []
           - target: "vmware-tanzu/octant"
-            deps: []
+            deps: ["libbtrfs-dev"]
           - target: "moby/buildkit"
             deps: []
           - target: "tendermint/tendermint"
@@ -224,18 +219,20 @@ jobs:
       DEPS: ${{ join(matrix.deps, ' ') }}
       SHA: ${{ needs.build-tip.outputs.sha }}
     steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: go-${{ env.SHA }}
-          path: go-${{ env.SHA }}
-      - name: fix permissions
+      - name: install deps
+        if: ${{ env.DEPS != '' }}
         run: |
-          chmod +x go-${{ env.SHA }}/bin/*
-          chmod +x go-${{ env.SHA }}/pkg/tool/linux_amd64/*
-      - name: Set env
+          sudo apt-get update
+          sudo apt-get install -y "$DEPS"
+      - name: download
+        uses: actions/cache@v4
+        with:
+          path: go-${{ env.SHA }}
+          key: go-${{ env.SHA }}
+      - name: set env
         run: |
           echo "GOTIP=$PWD/go-${{ env.SHA }}/bin/go" >> "$GITHUB_ENV"
-      - name: Check version
+      - name: check version
         run: |
           "$GOTIP" version
           "$GOTIP" env
@@ -244,6 +241,7 @@ jobs:
           repository: ${{ matrix.target }}
           submodules: true
           path: ${{ matrix.target }}
-      - run: |
+      - name: gotip build
+        run: |
           "$GOTIP" build ./...
         working-directory: ${{ matrix.target }}
