@@ -17,18 +17,22 @@ jobs:
           echo "sha=$SHA" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ github.token }}
-      - name: Download
-        run: |
-          curl -fsSL "https://github.com/golang/go/archive/$SHA.tar.gz" | tar zx
-      - name: Create VERSION
-        run: |
-          echo "devel $SHA" > "go-$SHA/VERSION"
+      - name: Cache
+        uses: actions/cache@v4
+        id: cache-tip
+        with:
+          path: go-${{ env.SHA }}
+          key: go-${{ env.SHA }}
       - uses: actions/setup-go@v5
+        if: steps.cache-tip.outputs.cache-hit != 'true'
         with:
           go-version: '1.22'
-      - name: Run make.bash
-        working-directory: go-${{ env.SHA }}/src
+      - name: Build tip
+        if: steps.cache-tip.outputs.cache-hit != 'true'
         run: |
+          curl -fsSL "https://github.com/golang/go/archive/$SHA.tar.gz" | tar zx
+          echo "devel $SHA" > "go-$SHA/VERSION"
+          pushd "go-$SHA"
           ./make.bash
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -226,7 +230,7 @@ jobs:
           path: go-${{ env.SHA }}
       - name: Add path
         run: |
-          echo "GOTIP=$PWD/go-${{ env.SHA }}/bin" >> "$GITHUB_ENV"
+          echo "GOTIP=$PWD/go-${{ env.SHA }}/bin/go" >> "$GITHUB_ENV"
       - name: Check version
         run: |
           "$GOTIP" version
