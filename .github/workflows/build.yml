@@ -4,7 +4,37 @@ on:
   schedule:
     - cron: "0 0 * * *"
 jobs:
+  build-tip:
+    runs-on: ubuntu-22.04
+    outputs:
+      sha: ${{ steps.sha.outputs.sha }}
+    steps:
+      - name: Get SHA
+        id: sha
+        run: |
+          SHA=$(gh api 'repos/golang/go/commits?per_page=1' --jq '.[].sha')
+          echo "SHA=$SHA" >> "$GITHUB_ENV"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+      - name: Download
+        run: |
+          curl -fsSLO "https://github.com/golang/go/archive/$SHA.tar.gz" | tar zx
+      - name: Create VERSION
+        run: |
+          echo "devel $SHA" > go-${{ env.SHA }}/VERSION
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - name: Run make.bash
+        working-directory: go-${{ env.SHA }}/src
+        run: |
+          ./make.bash
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: go-${{ env.SHA }}
+          path: go-${{ env.SHA }}
   build:
+    needs:  [build-tip]
     strategy:
       fail-fast: false
       matrix:
@@ -182,28 +212,25 @@ jobs:
           - target: "benthosdev/benthos"
             deps: []
           - target: "cortexproject/cortex"
-            deps: []
     runs-on: ubuntu-22.04
     env:
       GOAMD64: v3
       DEPS: ${{ join(matrix.deps, ' ') }}
+      SHA: ${{ needs.build-tip.outputs.sha }}
     steps:
-      - name: install deps
-        if: ${{ env.DEPS != '' }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: go-${{ env.SHA }}
+          path: go-${{ env.SHA }}
+      - name: Add path
         run: |
-          sudo apt-get update
-          sudo apt-get install -y "$DEPS"
-      - uses: actions/setup-go@v5
-      - name: install tip
+          echo "$PWD/go-${{ env.SHA }}/bin" >> "$GITHUB_PATH"
+      - name: Check version
         run: |
-          go install "golang.org/dl/gotip@latest"
-          gotip download
-      - name: print version and env info
-        run: |
-          gotip version
-          gotip env
+          go env
+          go version
       - uses: actions/checkout@v4
         with:
           repository: ${{ matrix.target }}
           submodules: true
-      - run: gotip build ./...
+      - run: go build ./...
