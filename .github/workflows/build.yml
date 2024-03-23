@@ -136,7 +136,7 @@ jobs:
         if: ${{ env.DEPS != '' }}
         run: |
           sudo apt-get update
-          sudo apt-get install -y "$DEPS"
+          sudo apt-get install -y $DEPS
       - name: download
         uses: actions/cache@v4
         with:
