@@ -48,7 +48,6 @@ jobs:
           - target: "VictoriaMetrics/VictoriaMetrics"
           - target: "aquasecurity/tfsec"
           - target: "argoproj/argo-cd"
-          - target: "argoproj/argo-workflows"
           - target: "authelia/authelia"
           - target: "benthosdev/benthos"
           - target: "buildpacks/pack"
@@ -85,6 +84,7 @@ jobs:
           - target: "hashicorp/vault"
           - target: "hashicorp/waypoint"
           - target: "helm/helm"
+          - target: "helmfile/helmfile"
           - target: "jaegertracing/jaeger"
           - target: "juju/juju"
           - target: "kedacore/keda"
@@ -93,6 +93,7 @@ jobs:
           - target: "kubernetes/kops"
           - target: "linkerd/linkerd2"
           - target: "minio/minio"
+          - target: "microsoft/typescript-go"
           - target: "moby/buildkit"
           - target: "nats-io/nats-server"
           - target: "nsqio/nsq"
@@ -101,6 +102,7 @@ jobs:
           - target: "openshift/oc"
             deps: ["libgpgme-dev"]
           - target: "operator-framework/operator-sdk"
+            deps: ["libgpgme-dev"]
           - target: "ory/hydra"
           - target: "ory/keto"
           - target: "ory/kratos"
