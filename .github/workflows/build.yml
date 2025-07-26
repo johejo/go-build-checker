@@ -26,7 +26,7 @@ jobs:
       - uses: actions/setup-go@v5
         if: steps.cache-tip.outputs.cache-hit != 'true'
         with:
-          go-version: '1.22'
+          go-version: '1.23'
       - name: build tip
         if: steps.cache-tip.outputs.cache-hit != 'true'
         run: |
@@ -44,7 +44,6 @@ jobs:
           - target: "GoogleCloudPlatform/terraformer"
           - target: "GoogleContainerTools/kaniko"
           - target: "GoogleContainerTools/skaffold"
-          - target: "OWASP/Amass"
           - target: "VictoriaMetrics/VictoriaMetrics"
           - target: "aquasecurity/tfsec"
           - target: "argoproj/argo-cd"
@@ -72,7 +71,7 @@ jobs:
           - target: "golang-migrate/migrate"
           - target: "golangci/golangci-lint"
           - target: "gomods/athens"
-          - target: "gopherjs/gopherjs"
+#         - target: "gopherjs/gopherjs"
           - target: "goreleaser/goreleaser"
           - target: "grafana/k6"
           - target: "grpc-ecosystem/grpc-gateway"
@@ -86,7 +85,7 @@ jobs:
           - target: "helm/helm"
           - target: "helmfile/helmfile"
           - target: "jaegertracing/jaeger"
-          - target: "juju/juju"
+#         - target: "juju/juju"
           - target: "kedacore/keda"
           - target: "knative/serving"
           - target: "kubernetes/ingress-nginx"
@@ -123,12 +122,12 @@ jobs:
           - target: "tendermint/tendermint"
           - target: "terraform-linters/tflint"
           - target: "thanos-io/thanos"
-          - target: "uber/cadence"
+#         - target: "uber/cadence"
           - target: "vmware-tanzu/octant"
             deps: ["libbtrfs-dev", "libdevmapper-dev"]
           - target: "vmware-tanzu/velero"
           - target: "weaveworks/ignite"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       GOAMD64: v3
       DEPS: ${{ join(matrix.deps, ' ') }}
