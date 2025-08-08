@@ -39,6 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        runner: ["ubuntu-24.04", "ubuntu-24.04-arm"]
         include:
           - target: "99designs/gqlgen"
           - target: "GoogleCloudPlatform/terraformer"
@@ -55,6 +56,7 @@ jobs:
           - target: "codenotary/immudb"
           - target: "concourse/concourse"
           - target: "containerd/containerd"
+          - target: "containers/skopeo"
           - target: "containrrr/watchtower"
           - target: "coredns/coredns"
           - target: "cortexproject/cortex"
@@ -85,7 +87,7 @@ jobs:
           - target: "helm/helm"
           - target: "helmfile/helmfile"
           - target: "jaegertracing/jaeger"
-#         - target: "juju/juju"
+          - target: "juju/juju"
           - target: "kedacore/keda"
           - target: "knative/serving"
           - target: "kubernetes/ingress-nginx"
@@ -96,6 +98,7 @@ jobs:
           - target: "moby/buildkit"
           - target: "nats-io/nats-server"
           - target: "nsqio/nsq"
+          - target: "opencontainers/umoci"
           - target: "open-policy-agent/opa"
           - target: "open-telemetry/opentelemetry-collector"
           - target: "openshift/oc"
