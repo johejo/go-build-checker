@@ -130,7 +130,7 @@ jobs:
             deps: ["libbtrfs-dev", "libdevmapper-dev"]
           - target: "vmware-tanzu/velero"
           - target: "weaveworks/ignite"
-    runs-on: ubuntu-24.04
+    runs-on: ${{ matrix.runner }}
     env:
       GOAMD64: v3
       DEPS: ${{ join(matrix.deps, ' ') }}
