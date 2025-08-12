@@ -140,7 +140,7 @@ jobs:
         run: |
           "$GOTIP" version
           "$GOTIP" env
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: ${{ matrix.target }}
           submodules: true
