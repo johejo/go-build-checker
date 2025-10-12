@@ -1,6 +1,6 @@
 # go-build-checker
 
-Building OSS written in Go using the Go master branch that often be called "tip" or "gotip".
+Building several Go projects using the Go master branch, often referred to as “tip” or “gotip.”
 This is to find compiler (or linker) bugs early and provide fast feedback.
 Some projects may break for reasons unrelated to the compiler.
 
