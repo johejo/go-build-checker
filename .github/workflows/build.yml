@@ -93,7 +93,7 @@ jobs:
           - "knative/serving"
           - "kopia/kopia"
           - "kubernetes/ingress-nginx"
-          - "kubernetes/kops"
+#         - "kubernetes/kops"
           - "linkerd/linkerd2"
           - "minio/minio"
           - "microsoft/typescript-go"
