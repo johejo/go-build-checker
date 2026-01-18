@@ -149,3 +149,5 @@ jobs:
         run: |
           "$GOTIP" build ./...
         working-directory: ${{ matrix.target }}
+        env:
+          GOEXPERIMENT: "jsonv2"
