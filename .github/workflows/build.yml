@@ -21,12 +21,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
       - name: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache-tip
         with:
           path: go-${{ env.SHA }}
           key: go-${{ env.SHA }}-${{ matrix.runner }}
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         if: steps.cache-tip.outputs.cache-hit != 'true'
         with:
           go-version: '1.24.13'
@@ -123,7 +123,7 @@ jobs:
       SHA: ${{ needs.build-tip.outputs.sha }}
     steps:
       - name: download
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: go-${{ env.SHA }}
           key: go-${{ env.SHA }}-${{ matrix.runner }}
@@ -134,7 +134,7 @@ jobs:
         run: |
           "$GOTIP" version
           "$GOTIP" env
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           repository: ${{ matrix.target }}
           submodules: true
