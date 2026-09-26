@@ -122,6 +122,16 @@ jobs:
       GOAMD64: v3
       SHA: ${{ needs.build-tip.outputs.sha }}
     steps:
+      - name: Free disk space
+        run: |
+          df -h /
+          # Build jobs use the cached Go tip rather than the runner's preinstalled toolchains.
+          if [ -n "${RUNNER_TOOL_CACHE:-}" ]; then
+            sudo rm -rf "$RUNNER_TOOL_CACHE"
+          fi
+          # These SDKs are unused by the Go build checks.
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
+          df -h /
       - name: download
         uses: actions/cache@v5
         with:
