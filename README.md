@@ -32,6 +32,7 @@ It's recommended to minimize repro code as much as possible before filing an iss
 - https://github.com/golang/go/issues/75863
 - https://github.com/golang/go/issues/78599
 - https://github.com/golang/go/issues/79960
+- https://github.com/golang/go/issues/82054
 
 ## License
 
